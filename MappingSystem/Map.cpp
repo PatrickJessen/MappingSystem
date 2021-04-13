@@ -1,4 +1,5 @@
 #include "Map.h"
+#include <iostream>
 Map::Map(Window* window, const char* path)
 {
     this->window = window;
@@ -7,6 +8,7 @@ Map::Map(Window* window, const char* path)
     for (int r = 0; r < kRow; r++) {
         for (int c = 0; c < kCol; c++) {
             fs >> level[r][c];
+            /*std::cout << r << " " << c << "\n";*/
         }
     }
 }
@@ -16,7 +18,7 @@ Map::~Map()
 }
 
 
-void Map::LoadMap(Window* window)
+void Map::LoadMap(Window* window, Sprite* sprite)
 {
     for (int i = 0; i < kRow; ++i) {
         for (int j = 0; j < kCol; ++j) {
@@ -24,7 +26,10 @@ void Map::LoadMap(Window* window)
             dstRect = { j * tileSize, i * tileSize, tileSize, tileSize };
             // tilenummer fra txt filen
             srcRect = { level[i][j] * tileSize, 0, tileSize, tileSize };
-            SDL_RenderCopy(window->GetRender(), texture, &srcRect, &dstRect);
+            if (level[i][j] == 1)
+            {
+                SDL_RenderCopy(window->GetRender(), sprite->tex, &srcRect, &dstRect);
+            }
         }
     }
 }

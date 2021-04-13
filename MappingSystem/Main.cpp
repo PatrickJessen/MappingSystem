@@ -3,13 +3,14 @@
 #include "Map.h"
 int main()
 {
-	Window* game = new Window("hello", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 900, 700, false);
-	Map* map = new Map(game, "Assets/lab.map");
-	map->texture = map->loadTexture(game->GetRender(), "Assets/LabTile.bmp");
+	Window* game = new Window("hello", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 800, false);
+	Map* map = new Map(game, "Assets/newLab.txt");
+	//map->texture = map->loadTexture(game->GetRender(), "Assets/labtiletest.bmp");
+	Sprite* sprite = new Sprite("Assets/wall.png", game);
 
 	while (game->Running())
 	{
-		map->LoadMap(game);
+		map->LoadMap(game, sprite);
 		game->Update();
 		game->Clear();
 	}
